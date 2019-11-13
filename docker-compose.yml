@@ -1,0 +1,45 @@
+version: '3'
+services:
+  web: &app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    env_file: .env.dev
+    environment:
+      - EDITOR=vim
+      - WEBPACKER_DEV_SERVER_HOST=webpack
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+      - node-modules:/app/node_modules
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+  webpack:
+    <<: *app
+    command: "bin/webpack-dev-server"
+    environment:
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    ports:
+      - "3035:3035"
+    depends_on:
+      - web
+    tty: false
+    stdin_open: false
+  db:
+    restart: always
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      TZ: Asia/Tokyo
+    volumes:
+      - store:/var/lib/postgresql/data
+volumes:
+  store:
+  bundle:
+  node-modules:
