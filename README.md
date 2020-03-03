@@ -37,6 +37,7 @@ production:
   url: <%= ENV['DATABASE_URL'] %>
 
 $ docker-compose run --rm web bundle exec rails db:create
+$ docker-compose run --rm web bin/yarn install
 $ docker-compose up
 ```
 
