@@ -1,14 +1,52 @@
-.env
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Ignore bundler config.
-/.bundle
-/vendor/bundle
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# VisualStudioCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Local History for Visual Studio Code
+.history/
+.irb_history
 
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
 
 # Ignore uploaded files in development.
 /storage/*
@@ -27,4 +65,11 @@
 yarn-debug.log*
 .yarn-integrity
 
-.DS_Store
+# dotenv, dotenv-rails
+# TODO Comment out these rules if environment variables can be committed
+.env
+!.env.sample
+
+## Environment normalization:
+/.bundle
+/vendor/bundle
