@@ -1,0 +1,14 @@
+# Git
+.git
+.gitignore
+
+# Documents
+README.md
+docs/
+
+# Rails
+log
+tmp
+
+# Rspec
+.rspec
