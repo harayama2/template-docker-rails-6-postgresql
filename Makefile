@@ -15,7 +15,7 @@ down:
 downv:
 		docker-compose down -v
 env:
-		cp .env.sample .env
+		cp .env.sample .env; rm .env.sample
 login:
 		docker-compose run --rm backend sh
 dbc:
