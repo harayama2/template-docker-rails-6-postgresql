@@ -17,8 +17,12 @@ gem_group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'html2slim'
   gem 'letter_opener_web'
 end
+
+gem 'rails-i18n'
+gem 'slim-rails'
 
 # ==========================
 # Application settings
@@ -125,6 +129,17 @@ TEXT"
 run 'mkdir ./app/javascript/stylesheets'
 run 'touch ./app/javascript/stylesheets/application.scss'
 
+gsub_file 'app/views/layouts/application.html.erb',
+          'stylesheet_link_tag',
+          'stylesheet_pack_tag'
+
+append_to_file 'app/javascript/packs/application.js' do
+  <<~TEXT
+
+    import "../stylesheets/application"
+  TEXT
+end
+
 # ==========================
 # Test settings
 # --------------------------
@@ -193,19 +208,24 @@ RSpec.configure do |config|
 end
 TEXT"
 
+# ==========================
+# View settings
+run 'bundle exec erb2slim app/views app/views'
+run 'bundle exec erb2slim app/views app/views -d'
+
+# Database create and migration
+if yes? 'run migrate? yes/no'
+  rails_command 'db:create'
+  rails_command 'db:migrate'
+end
+
 after_bundle do
-  git_email = ask('Your git email:')
-  git_username = ask('Your git username:')
+  git_email = ask('Your git email? :')
+  git_username = ask('Your git username? :')
   git config: "--global user.email #{git_email}"
   git config: "--global user.name #{git_username}"
 
   git :init
   git add: '.'
   git commit: "-m 'First Commit'"
-end
-
-# Database create and migration
-if yes? 'run migrate? yes/no'
-  rails_command 'db:create'
-  rails_command 'db:migrate'
 end

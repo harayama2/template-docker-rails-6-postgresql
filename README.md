@@ -25,8 +25,10 @@ Please change to `.env` your preference.
 
 ### 2. Rails New
 
+This command is uses `-m ./rails_template.rb` option.
+
 ```bash
-$ docker-compose run --rm backend rails new . -d postgresql -T
+$ docker-compose run --rm backend rails new . -m ./rails_template.rb -d postgresql -T
 ```
 
 Please change to `rails new options` your preference.
