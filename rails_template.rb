@@ -95,6 +95,32 @@ gsub_file 'config/environments/development.rb',
 route "mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?"
 
 # ==========================
+# Database settings
+run 'rm config/database.yml'
+run "cat << TEXT > config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+  port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+
+development:
+  <<: *default
+  database: <%= ENV['DATABASE_DEV_NAME'] %>
+
+test:
+  <<: *default
+  database: <%= ENV['DATABASE_TEST_NAME'] %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+TEXT"
+
+# ==========================
 # CSS framework settings
 run 'mkdir ./app/javascript/stylesheets'
 run 'touch ./app/javascript/stylesheets/application.scss'
