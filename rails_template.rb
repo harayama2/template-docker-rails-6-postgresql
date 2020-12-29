@@ -220,12 +220,14 @@ if yes? 'run migrate? yes/no'
 end
 
 after_bundle do
-  git_email = ask('Your git email? :')
-  git_username = ask('Your git username? :')
-  git config: "--global user.email #{git_email}"
-  git config: "--global user.name #{git_username}"
+  if yes? 'git commit? yes/no'
+    git_email = ask('Your git email? :')
+    git_username = ask('Your git username? :')
+    git config: "--global user.email #{git_email}"
+    git config: "--global user.name #{git_username}"
 
-  git :init
-  git add: '.'
-  git commit: "-m 'First Commit'"
+    git :init
+    git add: '.'
+    git commit: "-m 'First Commit'"
+  end
 end

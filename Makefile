@@ -20,3 +20,7 @@ login:
 		docker-compose run --rm backend sh
 dbc:
 		docker-compose run --rm backend rails db:create
+
+# Remove generated rails folders
+rmrails:
+		rm -rf app bin config db lib log node_modules public spec storage tmp vendor

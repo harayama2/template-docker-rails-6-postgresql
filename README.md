@@ -31,12 +31,20 @@ This command is uses `-m ./rails_template.rb` option.
 $ docker-compose run --rm backend rails new . -m ./rails_template.rb -d postgresql -T
 ```
 
+[Template details](rails_template.rb)
+
 Please change to `rails new options` your preference.
 
 #### Other Examples
 
 ```bash
 $ docker-compose run --rm backend rails new . -d postgresql -T --skip-action-mailbox --webpack=stimulus
+```
+
+After rails new command, you must create database.
+
+```bash
+$ docker-compose run --rm backend rails db:create
 ```
 
 options:
@@ -53,43 +61,12 @@ options:
 - --skip-spring
 - --skip-bootsnap
 
-### 3. Settings
-
-**Edit `config/database.yml`.**
-
-```yml
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
-
-development:
-  <<: *default
-  database: <%= ENV['DATABASE_DEV_NAME'] %>
-
-test:
-  <<: *default
-  database: <%= ENV['DATABASE_TEST_NAME'] %>
-
-production:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-```
-
-**Create database**
-
-```bash
-$ make dbc
-```
-
-**Start containers**
+### 3. Start containers
 
 ```bash
 $ make
+# or
+# $ docker-compose up
 ```
 
 Access `http://localhost:3000` on your browser.
