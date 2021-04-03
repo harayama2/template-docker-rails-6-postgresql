@@ -5,7 +5,6 @@
 gem_group :test, :development do
   gem 'rubocop-airbnb', require: false
   gem 'rspec-rails'
-  gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
   gem 'database_rewinder'
   gem 'bullet'
@@ -178,9 +177,6 @@ run "cat << TEXT > ./.rspec
 --require spec_helper
 --format documentation
 TEXT"
-
-# Setting spring-commands-rspec
-run 'bundle exec spring binstub rspec'
 
 # Enable ./spec/support directory
 run 'mkdir ./spec/support'
