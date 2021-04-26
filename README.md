@@ -78,8 +78,3 @@ Access `http://localhost:3000` on your browser.
 ```bash
 $ make down
 ```
-
-## Customize
-
-- [Basic Settings](docs/settings/basic.md)
-- [Gems Settings](docs/settings/gems.md)
